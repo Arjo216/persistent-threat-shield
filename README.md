@@ -39,7 +39,7 @@ Unlike traditional firewalls that passively block ports, PTS engages attackers i
 
 ### 2. Installation
 ```bash
-git clone [https://github.com/YOUR_USERNAME/persistent-threat-shield.git](https://github.com/YOUR_USERNAME/persistent-threat-shield.git)
+git clone [https://github.com/Arjo216/persistent-threat-shield.git](https://github.com/Arjo216/persistent-threat-shield.git)
 cd persistent-threat-shield
 pip install -r requirements.txt
 
