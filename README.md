@@ -42,8 +42,8 @@ Unlike traditional firewalls that passively block ports, PTS engages attackers i
 git clone [https://github.com/Arjo216/persistent-threat-shield.git](https://github.com/Arjo216/persistent-threat-shield.git)
 cd persistent-threat-shield
 pip install -r requirements.txt
-
-## 🏗️ System Architecture
+```
+### 🏗️ System Architecture
 
 ```mermaid
 graph TD
