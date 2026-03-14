@@ -117,4 +117,3 @@ flowchart LR
     AL -. "8. Streams Live Telemetry" .-> UI
     UI --- SOC
 ```
----
