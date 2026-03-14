@@ -73,8 +73,8 @@ flowchart LR
 
     %% 💾 ZONE 3: IMMUTABLE DATA PIPELINE
     subgraph DATA ["💾 Telemetry & State Management"]
-        AL[/"📄 pts_audit_trail.log"<br>(Immutable Forensic Stream)/]:::data
-        BL[/"🚫 blacklist.txt"<br>(Active Kill Orders)/]:::data
+        AL[/"📄 pts_audit_trail.log<br>(Immutable Forensic Stream)"/]:::data
+        BL[/"🚫 blacklist.txt<br>(Active Kill Orders)"/]:::data
     end
 
     %% 🧠 ZONE 4: COGNITIVE ENGINE
@@ -88,7 +88,7 @@ flowchart LR
 
     %% ⚖️ ZONE 5: AUTONOMOUS LOGIC
     subgraph LOGIC ["⚖️ Autonomous Decision Core"]
-        AS{"Anomaly Score<br>< Threshold?"}:::decision
+        AS{"Anomaly Score<br>Below Threshold?"}:::decision
         NORM["✅ Normal: Monitor"]:::decision
         THREAT["🚨 Threat: Neutralize"]:::decision
         
@@ -117,3 +117,4 @@ flowchart LR
     AL -. "8. Streams Live Telemetry" .-> UI
     UI --- SOC
 ```
+---
