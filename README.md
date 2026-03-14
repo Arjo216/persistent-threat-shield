@@ -46,28 +46,75 @@ pip install -r requirements.txt
 ### 🏗️ System Architecture
 
 ```mermaid
-graph TD
-    subgraph "Attacker Realm"
-        A[Hacker / Red Team] -->|SSH Connection :2223| B(The Trap)
+flowchart LR
+    %% 🎨 STYLING PROFILES (Dark Theme Cyberpunk Aesthetic)
+    classDef threat fill:#2b0000,stroke:#ff3333,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef deception fill:#0d1b2a,stroke:#415a77,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef data fill:#1b263b,stroke:#778da9,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef cognitive fill:#1a0b2e,stroke:#9d4edd,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef decision fill:#00296b,stroke:#00509d,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef ui fill:#001d3d,stroke:#ffb703,stroke-width:2px,color:#fff,rx:5px,ry:5px;
+    classDef human fill:#003049,stroke:#d62828,stroke-width:2px,color:#fff,rx:20px,ry:20px;
+
+    %% 🌐 ZONE 1: EXTERNAL THREAT VECTOR
+    subgraph EXTERNAL ["⚠️ The Wild (External Network)"]
+        TA["🥷 Advanced Persistent Threat<br>(Attacker / Red Team)"]:::threat
     end
 
-    subgraph "AEGIS Deception Grid (Cloud)"
-        B[Pillar II: Chameleon Honeypot] -->|Logs Keystrokes| C[(Audit Log Stream)]
-        C -->|Real-time Ingestion| D{Pillar III: The Brain}
+    %% 🛡️ ZONE 2: DECEPTION GRID
+    subgraph TRAP ["🛡️ Pillar II: Active Deception (pts-trap)"]
+        direction TB
+        CH["🕸️ Chameleon Honeypot<br>(Paramiko SSH :2223)"]:::deception
+        FS["💻 Emulated OS Shell<br>(Fake Filesystem & Commands)"]:::deception
+        KS["⚡ executioner.py<br>(Automated Kill Switch)"]:::deception
         
-        D --"Anomaly Score < -0.5"--> E[🚨 Threat Detected]
-        D --"Anomaly Score > 0.0"--> F[✅ Normal Behavior]
-        
-        E -->|1. Update Blacklist| B
-        E -->|2. Trigger Alert| G[Pillar IV: Dashboard]
+        CH <-->|Interactive Session| FS
     end
 
-    subgraph "Defense Mechanisms"
-        B --"Reads Blacklist"--> H[🚫 Connection Terminated]
-        G --"Visualizes Attack"--> I[SOC Analyst / User]
+    %% 💾 ZONE 3: IMMUTABLE DATA PIPELINE
+    subgraph DATA ["💾 Telemetry & State Management"]
+        AL[/"📄 pts_audit_trail.log"<br>(Immutable Forensic Stream)/]:::data
+        BL[/"🚫 blacklist.txt"<br>(Active Kill Orders)/]:::data
     end
+
+    %% 🧠 ZONE 4: COGNITIVE ENGINE
+    subgraph BRAIN ["🧠 Pillar III: Cognitive Engine (pts-brain)"]
+        direction TB
+        FE["⚙️ Feature Extraction<br>(Time, Length, Sudo-flags)"]:::cognitive
+        IF["🤖 Isolation Forest AI<br>(Scikit-Learn Unsupervised)"]:::cognitive
+        
+        FE ==>|Mathematical Vectors| IF
+    end
+
+    %% ⚖️ ZONE 5: AUTONOMOUS LOGIC
+    subgraph LOGIC ["⚖️ Autonomous Decision Core"]
+        AS{"Anomaly Score<br>< Threshold?"}:::decision
+        NORM["✅ Normal: Monitor"]:::decision
+        THREAT["🚨 Threat: Neutralize"]:::decision
+        
+        AS -->|No| NORM
+        AS -->|Yes| THREAT
+    end
+
+    %% 📊 ZONE 6: SECURITY OPERATIONS
+    subgraph DASHBOARD ["📊 Pillar IV: SOC War Room (pts-dashboard)"]
+        UI["🖥️ Streamlit Web Interface<br>(Live Plotly Threat Maps)"]:::ui
+        SOC(("🕵️ SOC Analyst<br>(Human in the Loop)")):::human
+    end
+
+    %% 🔀 THE ARCHITECTURAL FLOW (CONNECTIONS)
+    TA == "1. Exploits Port 2223" ==> CH
+    CH -. "2. Streams Keystrokes & Payloads" .-> AL
     
-    style E fill:#ff4b4b,stroke:#333,stroke-width:2px,color:white
-    style D fill:#2b2d42,stroke:#8d99ae,stroke-width:2px,color:white
-    style B fill:#2b2d42,stroke:#8d99ae,stroke-width:2px,color:white
+    AL == "3. Real-time Ingestion" ==> FE
+    
+    IF ==>|4. Scores Behavior| AS
+    THREAT == "5. Writes Offending IP" ==> BL
+    
+    BL -. "6. Polled asynchronously" .-> KS
+    KS == "7. Drops Connection & Bans MAC/IP" ==> CH
+    
+    AL -. "8. Streams Live Telemetry" .-> UI
+    UI --- SOC
 ```
+---
